@@ -1,5 +1,5 @@
 const productos = [{"title":"book","price":40,"available":true,"id":1},{"title":"teapot","price":10,"available":true,"id":2},{"title":"computer","price":100,"available":true,"id":3}]
-
+const fs = require('fs');
 class Contenedor {
     constructor(nombre) {
         this.nombre = nombre
@@ -48,9 +48,9 @@ class Contenedor {
     }
     async getAll() {
         try {
-            let data = await fs.promises.readFile("./" + this.nombre, "utf-8")
+            let data = await fs.promises.readFile("./" + this.nombre, "utf-8") //!!!!
             data = JSON.parse(data)
-            console.log(data)
+            return data
         }catch {
             console.log("no se pudo leer el archivo")
         }
@@ -90,9 +90,13 @@ class Contenedor {
 
 const express = require("express")
 const app = express()
-    
+
+app.get('/',  (req, res) => {
+
+    res.send({hola: "Mundo"})
+});
     app.get('/productos', async (req, res) => {
-        const productsFile = new Contenedor('products.json');
+        const productsFile = new Contenedor('productos.txt');
     
         const products = await productsFile.getAll();
     
@@ -100,7 +104,7 @@ const app = express()
     });
 
     app.get('/productoRandom', async (req, res) => {
-        const productsFile = new Contenedor('products.json');
+        const productsFile = new Contenedor('productos.txt');
     
         const products = await productsFile.getAll();
     
@@ -109,7 +113,7 @@ const app = express()
         res.json(products[random]);
     });
     
-   app.listen(0, () => {
+   app.listen(8080, () => {
         
         console.log(`- Servidor escuchando`)
     })
