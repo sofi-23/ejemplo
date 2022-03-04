@@ -109,7 +109,9 @@ const app = express()
         res.json(products[random]);
     });
     
-   app.listen(8080, () => {
+   app.listen(0, () => {
         
         console.log(`- Servidor escuchando`)
     })
+
+    app.on("error", ()=> {console.log("ERROR")})
