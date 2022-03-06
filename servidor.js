@@ -1,4 +1,4 @@
-const productos = [{"title":"book","price":40,"available":true,"id":1},{"title":"teapot","price":10,"available":true,"id":2},{"title":"computer","price":100,"available":true,"id":3}]
+
 const fs = require('fs');
 class Contenedor {
     constructor(nombre) {
